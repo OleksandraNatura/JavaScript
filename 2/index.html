@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+
+    //Завдання 1
+
+    var a = 2, b = 3;
+
+    a + b < 4 ? document.write('Задание 1: Мало' + "<br>") : document.write('Задание 1: Много' + "<br>");
+
+    
+    
+    //Завдання 2
+
+      var login = prompt("Введите логин:");
+
+      login == 'Вася' ? document.write('Задание 2: ' + 'Привет' + "<br>") : 
+      login == '' ? document.write('Задание 2: ' + 'Нет логина' + "<br>") : 
+      login == 'Директор' ? document.write('Задание 2: ' + 'Здравствуйте' + "<br>") : 
+      document.write('Задание 2: ' + '' + "<br>");
+    
+
+    
+    
+    //Завдання 3
+
+    var a = 5, b = 15;
+
+    for (a; a < b; a++) {
+
+      if (a % 2) {
+        document.write('Задание 3: ' + a + "<br>");
+      }
+    }
+
+    
+    
+    //Завдання 4
+
+    for (var i = 0; i < 4; i++) {
+
+      for (var j = 0; j < 9; j++) {
+        document.write("* ");
+      }
+      document.write("<br/>");
+    }
+
+
+    for (var i = 0; i < 10; i++) {
+
+      for (var j = i + 1; j > 0; j--) {
+        document.write('* ');
+      }
+
+      document.write("<br/>");
+    }
+
+
+    for (var i = 0; i < 10; i++) {
+
+      for (var j = i + 1; j < 10; j++) {
+      }
+
+      for (var z = i + 1; z > 0; z--) {
+        document.write('*')
+      }
+
+      document.write('<br>')
+    }
+
+
+    for (var i = 0; i < 10; i++) {
+
+      for (var j = i + 1; j < 10; j++) {
+      }
+
+      for (var z = i + 1; z > 0; z--) {
+        document.write('*')
+      }
+
+      document.write('<br>')
+    }
+
+    for (var i = 0; i < 10; i++) {
+      for (var j = i + 1; j > 0; j--) {
+      }
+
+      for (var z = i + 1; z < 10; z++) {
+        document.write('*')
+      }
+
+      document.write('<br>')
+    }
+
+
+  </script>
+
+</body>
+
+</html>
