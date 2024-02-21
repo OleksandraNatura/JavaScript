@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    const arr = ["Джаз", "Блюз"]
+
+    var length = arr.push("Рок-н-ролл");
+
+    document.write("1:" + arr);
+
+    document.write("<br>" + arr.length);
+
+    var sum = 0;
+    arr.forEach(function (currentValue, index) {
+      sum += index + 1;
+    })
+
+    document.write("<p>2:" + sum)
+    var middle = Math.floor(sum / arr.length);
+
+    document.write("<br>" + middle);
+
+    arr[middle] = "Классика";
+
+    document.write("<br>" + arr);
+
+    var value = arr.shift();
+
+    document.write("<p>3:" + arr);
+    document.write("<br>" + value);
+
+    arr.unshift("Рэп", "Регги");
+
+    document.write("<p>4:" + arr);
+
+  </script>
+
+</body>
+
+</html>
