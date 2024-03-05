@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // Завдання 1
+        
+        var arrayName = [1, 2, 3, 4, 5];
+        document.write("Масив до обробки функції:" + arrayName + "<br />");
+        function addOne(item) {
+            item += 1;
+            return item;
+        }
+        function map(fn, array) {
+            for (var i = 0; i < array.length; i++) {
+                array[i] = fn(array[i]);
+            }
+            return array;
+        }
+        document.write(
+            "Масив після обробки функцією: " +
+            map(addOne, arrayName) +
+            "<br />" +
+            "<hr>"
+        );
+        // Завдання 2
+        
+         function checkAge(age) {
+           if (age < 18) {
+             return true;
+           } else {
+             return confirm("Ви повнолітні?");
+           }
+         }
+         
+        function checkAge(age) {
+            return age > 18 ? true : confirm("Ви повнолітні?");
+        }
+        document.write(checkAge(15));
+    </script>
+
+</body>
+</html>
