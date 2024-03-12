@@ -6,60 +6,35 @@
     <title>Document</title>
 </head>
 <body>
+    
     <script>
+        const doc = {
+                title: prompt("Заголовок:"),
+                body: prompt("Тіло :"),
+                footer: prompt("Футер :"),
+                date: prompt("Дата :")
+            }
 
-        var object = {
-            header: "",
-            body: "",
-            footer: "",
-            data: "",
-            application: {
-                header: "",
-                body: "",
-                footer: "",
-                data: "",
-            },
-            filler: function () {
-                this.header = prompt("Введіть назву для header");
-                this.body = prompt("Введіть назву для body");
-                this.footer = prompt("Введіть колір для footer");
-                this.data = prompt("Введіть число для data");
-                this.application.header = prompt(
-                    "Введіть назву для application header"
-                );
-                this.application.body = prompt(
-                    "Введіть назву для application body"
-                );
-                this.application.footer = prompt(
-                    "Введіть колір для application footer"
-                );
-                this.application.data = prompt(
-                    "Введіть число для application data"
-                );
-            },
-            show: function () {
-                document.write("header: " + this.header + "<br />");
-                document.write("body: " + this.body + "<br />");
-                document.write("footer: " + this.footer + "<br />");
-                document.write("data: " + this.data + "<br />");
-                document.write(
-                    "application header: " + this.application.header + "<br />"
-                );
-                document.write(
-                    "application body: " + this.application.body + "<br />"
-                );
-                document.write(
-                    "application footer: " + this.application.footer + "<br />"
-                );
-                document.write(
-                    "application data: " + this.application.data + "<br />"
-                );
-            },
-        };
-        object.filler();
-        object.show();
+            for (let element in doc) {
+                document.write(doc[element] + "<br/>");
+            }
 
+            doc.add = new Object();
+            doc.add.title = prompt("Заголовок Додатку :");
+            doc.add.body = prompt("Тіло Додатку :");
+            doc.add.footer = prompt("Футер Додатку :");
+            doc.add.date = prompt("Дата Додатку :");
+
+            function show() {
+                document.write("<p>" + doc.add.title + "<br/>");
+                document.write(doc.add.body + "<br/>");
+                document.write(doc.add.footer + "<br/>");
+                document.write(doc.add.date + "<br/>");
+            }
+
+            show();
 
     </script>
+
 </body>
 </html>
