@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        const doc = {
+            title: prompt("Заголовок:"),
+            body: prompt("Тіло :"),
+            footer: prompt("Футер :"),
+            date: prompt("Дата :")
+        }
+
+        for (let element in doc) {
+            document.write(doc[element] + "<br/>");
+        }
+
+        doc.add = new Object();
+        doc.add.title = prompt("Заголовок Додатку :");
+        doc.add.body = prompt("Тіло Додатку :");
+        doc.add.footer = prompt("Футер Додатку :");
+        doc.add.date = prompt("Дата Додатку :");
+
+        function show() {
+            document.write("<p>" + doc.add.title + "<br/>");
+            document.write(doc.add.body + "<br/>");
+            document.write(doc.add.footer + "<br/>");
+            document.write(doc.add.date + "<br/>");
+        }
+
+        show();
+
+    </script>
+
+</body>
+
+</html>
