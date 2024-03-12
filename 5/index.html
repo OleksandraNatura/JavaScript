@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        var object = {
+            header: "",
+            body: "",
+            footer: "",
+            data: "",
+            application: {
+                header: "",
+                body: "",
+                footer: "",
+                data: "",
+            },
+            filler: function () {
+                this.header = prompt("Введіть назву для header");
+                this.body = prompt("Введіть назву для body");
+                this.footer = prompt("Введіть колір для footer");
+                this.data = prompt("Введіть число для data");
+                this.application.header = prompt(
+                    "Введіть назву для application header"
+                );
+                this.application.body = prompt(
+                    "Введіть назву для application body"
+                );
+                this.application.footer = prompt(
+                    "Введіть колір для application footer"
+                );
+                this.application.data = prompt(
+                    "Введіть число для application data"
+                );
+            },
+            show: function () {
+                document.write("header: " + this.header + "<br />");
+                document.write("body: " + this.body + "<br />");
+                document.write("footer: " + this.footer + "<br />");
+                document.write("data: " + this.data + "<br />");
+                document.write(
+                    "application header: " + this.application.header + "<br />"
+                );
+                document.write(
+                    "application body: " + this.application.body + "<br />"
+                );
+                document.write(
+                    "application footer: " + this.application.footer + "<br />"
+                );
+                document.write(
+                    "application data: " + this.application.data + "<br />"
+                );
+            },
+        };
+        object.filler();
+        object.show();
+
+
+    </script>
+</body>
+</html>
