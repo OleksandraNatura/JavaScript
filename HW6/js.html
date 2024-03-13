@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        function Human(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        var humans = new Array(
+            new Human("Олег", 25),
+            new Human("Світлана", 28),
+            new Human("Андрій", 30),
+            new Human("Оксана", 22),
+        );
+        // Сортування по зростанню
+        function compareUp(a, b) {
+            if (a.age < b.age) {
+                return -1;
+            }
+            if (a.age > b.age) {
+                return 1;
+            }
+            return 0;
+        }
+
+        humans.sort(compareUp);
+
+        document.write("Сортування по зростанню<br>")
+
+        for (let i = 0; i < humans.length; i++) {
+            const l = humans[i];
+            document.write("<br>");
+            document.write("Ім'я: " + l.name);
+            document.write("<br>");
+            document.write("Років: " + l.age);
+            document.write("<br>");
+        }
+
+        //Сортування по спаданню
+        function compareDown(a, b) {
+            if (a.age < b.age) {
+                return 1;
+            }
+            if (a.age > b.age) {
+                return -1;
+            }
+            return 0;
+        }
+
+        humans.sort(compareDown);
+
+        document.write("Сортування по спаданню<br>");
+
+        for (let i = 0; i < humans.length; i++) {
+            const l = humans[i];
+            document.write("<br>");
+            document.write("Ім'я: " + l.name);
+            document.write("<br>");
+            document.write("Років: " + l.age);
+            document.write("<br>");
+        }
+
+    </script>
+</body>
+
+</html>
