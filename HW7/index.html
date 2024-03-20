@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        //Завдання 1 і 2:
+
+        function creatNewUser() {
+            let name = prompt("Введіть Ваше ім'я:");
+            let surname = prompt("Введіть Ваше прізвище:");
+            let birthday = prompt("Введіть дату народження в форматі DD.MM.YYYY:");
+            let dobArr = birthday.split('.').map(Number);
+
+            function NewUser(name, surname, birthday) {
+                this.firstName = name;
+                this.lastName = surname;
+                this.birthday = birthday;
+            }
+            this.getLogin = function () {
+
+                console.log(`User's login: ${name[0].toLowerCase()}${surname.toLowerCase()}`)
+            }
+            this.getAge = function () {
+                let today = new Date();
+                let age = today.getFullYear() - dobArr[2];
+                let month = today.getMonth() - dobArr[1];
+                let day = today.getDay() - dobArr[0];
+                if (month < 0 || (month === 0 && today.getDay() > day)) {
+                    age = age - 1;
+                }
+                else age;
+                console.log(`User's age: ${age}`);
+            }
+            this.getPassword = function () {
+
+                console.log(`User's password: ${name[0].toUpperCase()}${surname.toLowerCase()}${dobArr[2]}`)
+            }
+        }
+
+        creatNewUser();
+        getLogin();
+        getAge();
+        getPassword();
+
+        // Завдання 3:
+
+        const arr1 = ["hello", "world", 23, "23", null];
+        function filterBy(array, type) {
+            let result = array.filter((item) => typeof item !== type);
+            console.log(result)
+        }
+
+        filterBy(arr1, 'string')
+
+    </script>
+</body>
+
+</html>

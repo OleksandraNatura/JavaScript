@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        // вибір слів для відгадування
+            const words = [
+                "банан",
+                "яблуко",
+                "капуста",
+                "морква",
+                "согірок"
+            ];
+            // кількість помилок 
+            var errNum = 15;
+
+            const secretWord = words[Math.floor(Math.random() * words.length)];
+
+            var answerArray = [];
+            for (var i = 0; i < secretWord.length; i++) {
+                answerArray[i] = '_';
+            }
+
+            var hideLetter = secretWord.length;
+
+            while ((hideLetter > 0) && (errNum > 0)) {
+                alert("Відгадай слово : " + answerArray.join(" ") + `  Залишилось спроб : ${errNum} разів`);
+
+                var guess = prompt("Ваша буква : ");
+                if (guess === null) { break; }
+                else if (guess.length != 1) { alert("Пропишіть одну букву!"); }
+                else if (!isNaN(guess * 1)) { alert("Пропишіть букву, а не цифру!"); }
+                else {
+                    var temp = hideLetter;
+                    for (var j = 0; j < secretWord.length; j++) {
+                        if (secretWord[j] === guess) {
+                            answerArray[j] = guess;
+                            hideLetter--;
+                        }
+                    }
+
+                    if (temp === hideLetter) errNum--;
+                }
+            }
+
+            const wordNode = document.body.querySelector('h1');
+            const congrat = document.createElement('div');
+            wordNode.innerHTML = answerArray.join(' ');
+
+            if ((guess !== null) && errNum) {
+                congrat.innerHTML = "Вітаю, Ви виграли!!!";
+            } else {
+                congrat.innerHTML = "Нажаль, Ви програли...";
+            }
+            document.body.appendChild(congrat);
+    </script>
+
+</body>
+</html>
