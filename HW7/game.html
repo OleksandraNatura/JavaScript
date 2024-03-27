@@ -7,6 +7,9 @@
 </head>
 <body>
     
+    <h1 style="margin-left:40px; margin-top:50px;">_ _ _</h1>
+    <div style="color: red; font-size: 38px;">Вітаю, Ви виграли!!!</div>
+    <div style="color: red; font-size: 38px;">Нажаль, Ви програли...</div>
     <script>
         // вибір слів для відгадування
             const words = [
@@ -14,30 +17,30 @@
                 "яблуко",
                 "капуста",
                 "морква",
-                "согірок"
+                "огірок"
             ];
             // кількість помилок 
-            var errNum = 15;
+            let errNum = 15;
 
             const secretWord = words[Math.floor(Math.random() * words.length)];
 
-            var answerArray = [];
-            for (var i = 0; i < secretWord.length; i++) {
+            let answerArray = [];
+            for (let i = 0; i < secretWord.length; i++) {
                 answerArray[i] = '_';
             }
 
-            var hideLetter = secretWord.length;
+            let hideLetter = secretWord.length;
 
             while ((hideLetter > 0) && (errNum > 0)) {
                 alert("Відгадай слово : " + answerArray.join(" ") + `  Залишилось спроб : ${errNum} разів`);
 
-                var guess = prompt("Ваша буква : ");
+                let guess = prompt("Ваша буква : ");
                 if (guess === null) { break; }
                 else if (guess.length != 1) { alert("Пропишіть одну букву!"); }
                 else if (!isNaN(guess * 1)) { alert("Пропишіть букву, а не цифру!"); }
                 else {
-                    var temp = hideLetter;
-                    for (var j = 0; j < secretWord.length; j++) {
+                    let temp = hideLetter;
+                    for (let j = 0; j < secretWord.length; j++) {
                         if (secretWord[j] === guess) {
                             answerArray[j] = guess;
                             hideLetter--;
@@ -51,6 +54,8 @@
             const wordNode = document.body.querySelector('h1');
             const congrat = document.createElement('div');
             wordNode.innerHTML = answerArray.join(' ');
+            congrat.style.color = "black";
+            congrat.style.fontSize = "38px";
 
             if ((guess !== null) && errNum) {
                 congrat.innerHTML = "Вітаю, Ви виграли!!!";
