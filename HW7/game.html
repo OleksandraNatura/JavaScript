@@ -31,10 +31,12 @@
 
             let hideLetter = secretWord.length;
 
+            let guess;
+
             while ((hideLetter > 0) && (errNum > 0)) {
                 alert("Відгадай слово : " + answerArray.join(" ") + `  Залишилось спроб : ${errNum} разів`);
 
-                const guess = prompt("Ваша буква : ");
+                guess = prompt("Ваша буква : ");
                 if (guess === null) { break; }
                 else if (guess.length != 1) { alert("Пропишіть одну букву!"); }
                 else if (!isNaN(guess * 1)) { alert("Пропишіть букву, а не цифру!"); }
