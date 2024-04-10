@@ -8,8 +8,8 @@
 <body>
     
     <h1 style="margin-left:40px; margin-top:50px;">_ _ _</h1>
-    <div style="color: red; font-size: 38px;">Вітаю, Ви виграли!!!</div>
-    <div style="color: red; font-size: 38px;">Нажаль, Ви програли...</div>
+    <!-- <div style="color: red; font-size: 38px;">Вітаю, Ви виграли!!!</div>
+    <div style="color: red; font-size: 38px;">Нажаль, Ви програли...</div> -->
     <script>
         // вибір слів для відгадування
             const words = [
@@ -34,7 +34,7 @@
             while ((hideLetter > 0) && (errNum > 0)) {
                 alert("Відгадай слово : " + answerArray.join(" ") + `  Залишилось спроб : ${errNum} разів`);
 
-                let guess = prompt("Ваша буква : ");
+                const guess = prompt("Ваша буква : ");
                 if (guess === null) { break; }
                 else if (guess.length != 1) { alert("Пропишіть одну букву!"); }
                 else if (!isNaN(guess * 1)) { alert("Пропишіть букву, а не цифру!"); }
