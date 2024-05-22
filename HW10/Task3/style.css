@@ -1,0 +1,49 @@
+#minesweeper {
+  display: inline-block;
+  font-family: Arial, sans-serif;
+  user-select: none;
+}
+
+.cell {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border: 1px solid #ccc;
+  display: inline-block;
+}
+
+.cell:hover {
+  background-color: #eee;
+}
+
+.flag {
+  background-color: #FF0000;
+}
+
+.hidden-mine::after {
+  content: '💣';
+  color: transparent;
+  text-shadow: 0 0 0 #fff;
+}
+
+.mine {
+  background-color: #000;
+  color: #fff;
+  font-size: 24px;
+  line-height: 40px;
+  text-align: center;
+}
+
+button {
+  margin-top: 10px;
+  padding: 5px 10px;
+}
+
+button:hover {
+  background-color: #ccc;
+}
+
+div:last-child {
+  margin-top: 10px;
+}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hamburger Order</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Замовити Гамбургер</h1>
+    <div>
+        <label for="size">Розмір:</label>
+        <select id="size">
+            <option value="SIZE_SMALL">Маленький</option>
+            <option value="SIZE_LARGE">Великий</option>
+        </select>
+    </div>
+    <div>
+        <label for="stuffing">Начинка:</label>
+        <select id="stuffing">
+            <option value="STUFFING_CHEESE">Сир</option>
+            <option value="STUFFING_SALAD">Салат</option>
+            <option value="STUFFING_POTATO">Картопля</option>
+        </select>
+    </div>
+    <div>
+        <label>Добавки:</label>
+        <div>
+            <input type="checkbox" id="mayo" value="TOPPING_MAYO">
+            <label for="mayo">Майонез</label>
+        </div>
+        <div>
+            <input type="checkbox" id="spice" value="TOPPING_SPICE">
+            <label for="spice">Приправа</label>
+        </div>
+    </div>
+    <button id="calculate">Розрахувати</button>
+    <div id="result"></div>
+    <script src="script.js"></script>
+</body>
+</html>
