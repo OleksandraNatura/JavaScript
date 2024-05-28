@@ -1,136 +1,131 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const minesweeper = document.getElementById('minesweeper');
+document.addEventListener('DOMContentLoaded', function () {
+    const minefield = document.getElementById('minefield');
+    const restartButton = document.getElementById('restart');
+    const flagCountDisplay = document.getElementById('flag-count');
+    let flagCount = 0;
 
-  let mines = [];
-  let flags = 0;
-  let minesRemaining = 10;
-  let gameStarted = false;
+    const SIZE = 8;
+    const MINES_COUNT = 10;
+    let cells, minePositions;
 
-  function initialize() {
-      mines = Array(8).fill().map(() => Array(8).fill(false));
-      flags = 0;
-      minesRemaining = 10;
-      gameStarted = false;
+    function initializeGame() {
+        cells = [];
+        minePositions = new Set();
+        flagCount = 0;
+        flagCountDisplay.textContent = `${flagCount}/${MINES_COUNT}`;
 
-      // Розміщуємо міни
-      let placedMines = 0;
-      while (placedMines < 10) {
-          const randomRow = Math.floor(Math.random() * 8);
-          const randomCol = Math.floor(Math.random() * 8);
-          if (!mines[randomRow][randomCol]) {
-              mines[randomRow][randomCol] = true;
-              placedMines++;
-          }
-      }
+        if (minefield) {
+            minefield.innerHTML = '';
+            minefield.style.gridTemplateColumns = `repeat(${SIZE}, 40px)`;
+            minefield.style.gridTemplateRows = `repeat(${SIZE}, 40px)`;
 
-      render();
-  }
+            for (let i = 0; i < SIZE * SIZE; i++) {
+                const cell = document.createElement('div');
+                cell.classList.add('cell');
+                cell.dataset.index = i;
+                minefield.appendChild(cell);
+                cells.push(cell);
+            }
 
-  function render() {
-      minesweeper.innerHTML = '';
+            while (minePositions.size < MINES_COUNT) {
+                const randomIndex = Math.floor(Math.random() * SIZE * SIZE);
+                minePositions.add(randomIndex);
+            }
 
-      for (let i = 0; i < 8; i++) {
-          for (let j = 0; j < 8; j++) {
-              const cell = document.createElement('div');
-              cell.classList.add('cell');
-              cell.dataset.row = i;
-              cell.dataset.col = j;
+            cells.forEach(cell => {
+                cell.addEventListener('click', handleLeftClick);
+                cell.addEventListener('contextmenu', handleRightClick);
+            });
 
-              cell.addEventListener('click', handleLeftClick);
-              cell.addEventListener('contextmenu', handleRightClick);
+            restartButton.style.display = 'none';
+        } else {
+            console.error('Element with id "minefield" not found');
+        }
+    }
 
-              if (mines[i][j] && gameStarted && !cell.classList.contains('flag')) {
-                  cell.classList.add('hidden-mine');
-              }
+    function handleLeftClick(event) {
+        const index = parseInt(event.target.dataset.index);
+        if (minePositions.has(index)) {
+            revealMines();
+            gameOver();
+        } else {
+            openCell(index);
+        }
+    }
 
-              minesweeper.appendChild(cell);
-          }
-          minesweeper.appendChild(document.createElement('br'));
-      }
+    function handleRightClick(event) {
+        event.preventDefault();
+        const cell = event.target;
+        if (!cell.classList.contains('open')) {
+            if (cell.classList.contains('flag')) {
+                cell.classList.remove('flag');
+                flagCount--;
+            } else {
+                if (flagCount < MINES_COUNT) {
+                    cell.classList.add('flag');
+                    flagCount++;
+                } else {
+                    alert("Maximum number of flags reached!");
+                }
+            }
+            flagCountDisplay.textContent = `${flagCount}/${MINES_COUNT}`;
+        }
+    }
 
-      const resetButton = document.createElement('button');
-      resetButton.textContent = 'Почати гру заново';
-      resetButton.addEventListener('click', initialize);
-      minesweeper.appendChild(resetButton);
+    function openCell(index) {
+        const cell = cells[index];
+        if (cell.classList.contains('open') || cell.classList.contains('flag')) return;
 
-      const flagsCount = document.createElement('div');
-      flagsCount.textContent = `Встановлено прапорців: ${flags}/${minesRemaining}`;
-      minesweeper.appendChild(flagsCount);
-  }
+        cell.classList.add('open');
+        const mineCount = countMinesAround(index);
 
-  function handleLeftClick(event) {
-      const row = parseInt(event.target.dataset.row);
-      const col = parseInt(event.target.dataset.col);
+        if (mineCount > 0) {
+            cell.textContent = mineCount;
+        } else {
+            const neighbors = getNeighbors(index);
+            neighbors.forEach(neighborIndex => openCell(neighborIndex));
+        }
+    }
 
-      if (!gameStarted) {
-          gameStarted = true;
-      }
+    function countMinesAround(index) {
+        const neighbors = getNeighbors(index);
+        return neighbors.filter(neighborIndex => minePositions.has(neighborIndex)).length;
+    }
 
-      if (mines[row][col]) {
-          revealAllMines();
-          alert('Гра закінчена! Ви програли.');
-          event.target.classList.add('hidden-mine');
-          initialize();
-      } else {
-          const adjacentMines = countAdjacentMines(row, col);
-          event.target.textContent = adjacentMines === 0 ? '' : adjacentMines;
-      }
-  }
+    function getNeighbors(index) {
+        const neighbors = [];
+        const row = Math.floor(index / SIZE);
+        const col = index % SIZE;
 
-  function handleRightClick(event) {
-      event.preventDefault();
+        for (let r = row - 1; r <= row + 1; r++) {
+            for (let c = col - 1; c <= col + 1; c++) {
+                if (r >= 0 && r < SIZE && c >= 0 && c < SIZE) {
+                    const neighborIndex = r * SIZE + c;
+                    if (neighborIndex !== index) {
+                        neighbors.push(neighborIndex);
+                    }
+                }
+            }
+        }
+        return neighbors;
+    }
 
-      const row = parseInt(event.target.dataset.row);
-      const col = parseInt(event.target.dataset.col);
+    function revealMines() {
+        minePositions.forEach(index => {
+            const cell = cells[index];
+            cell.classList.add('mine');
+        });
+    }
 
-      if (!gameStarted) {
-          gameStarted = true;
-      }
+    function gameOver() {
+        cells.forEach(cell => {
+            cell.removeEventListener('click', handleLeftClick);
+            cell.removeEventListener('contextmenu', handleRightClick);
+        });
+        restartButton.style.display = 'block';
+    }
 
-      if (event.target.classList.contains('flag')) {
-          event.target.classList.remove('flag');
-          flags--;
-          minesRemaining++;
-      } else {
-          event.target.classList.add('flag');
-          flags++;
-          minesRemaining--;
-      }
+    restartButton.addEventListener('click', initializeGame);
 
-      updateFlagsCount();
-  }
-
-  function countAdjacentMines(row, col) {
-      let count = 0;
-
-      for (let i = Math.max(0, row - 1); i <= Math.min(7, row + 1); i++) {
-          for (let j = Math.max(0, col - 1); j <= Math.min(7, col + 1); j++) {
-              if (mines[i][j]) count++;
-          }
-      }
-
-      return count;
-  }
-
-  function revealAllMines() {
-      const cells = document.querySelectorAll('.cell');
-      cells.forEach(cell => {
-          const row = parseInt(cell.dataset.row);
-          const col = parseInt(cell.dataset.col);
-
-          if (mines[row][col]) {
-              cell.classList.add('mine');
-              cell.textContent = '💣';
-          }
-          cell.removeEventListener('click', handleLeftClick);
-          cell.removeEventListener('contextmenu', handleRightClick);
-      });
-  }
-
-  function updateFlagsCount() {
-      const flagsCount = document.querySelector('div:nth-child(3)');
-      flagsCount.textContent = `Встановлено прапорців: ${flags}/${minesRemaining}`;
-  }
-
-  initialize();
+    initializeGame();
 });
