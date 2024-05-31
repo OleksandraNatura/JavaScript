@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Builder</title>
+    <link rel="stylesheet" href="Styles/styles.css">
+</head>
+<body>
+    <header>
+        <div class="wrapper">
+            <img src="logo.png" id="logo" alt="Logo">
+            <nav>
+                <ul>
+                    <li>Про нас</li>
+                    <li>Меню</li>
+                    <li>Контакти</li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <h1>Зроби свою піцу</h1>
+
+        <form id="pizzaForm">
+            <h3>Розмір піци</h3>
+            <div class="size-options">
+                <label>
+                    <input type="radio" name="size" value="small" checked> 
+                    Мала (50 грн)
+                    <button type="button" class="selectSizeBtn" data-size="small">Вибрати</button>
+                </label>
+                <label>
+                    <input type="radio" name="size" value="mid"> 
+                    Середня (75 грн)
+                    <button type="button" class="selectSizeBtn" data-size="mid">Вибрати</button>
+                </label>
+                <label>
+                    <input type="radio" name="size" value="big"> 
+                    Велика (100 грн)
+                    <button type="button" class="selectSizeBtn" data-size="big">Вибрати</button>
+                </label>
+            </div>
+        </form>
+
+        <div class="table-wrapper">
+            <div class="table" id="pizzaBase">
+                <img src="pizza_base.png" alt="Pizza Base">
+            </div>
+            <div class="ingridients">
+                <h3>Соуси</h3>
+                <div id="sauceClassic" class="draggable" draggable="true">
+                    <img src="sauce_classic.png" alt="Classic Sauce">
+                    <span>Класичний</span>
+                </div>
+                <div id="sauceBBQ" class="draggable" draggable="true">
+                    <img src="sauce_bbq.png" alt="BBQ Sauce">
+                    <span>BBQ</span>
+                </div>
+                <div id="sauceRikotta" class="draggable" draggable="true">
+                    <img src="sauce_rikotta.png" alt="Rikotta Sauce">
+                    <span>Рікотта</span>
+                </div>
+
+                <h3>Топінги</h3>
+                <div id="moc1" class="draggable" draggable="true">
+                    <img src="moc1.png" alt="Moc1">
+                    <span>Моцарела 1</span>
+                </div>
+                <div id="moc2" class="draggable" draggable="true">
+                    <img src="moc2.png" alt="Moc2">
+                    <span>Моцарела 2</span>
+                </div>
+                <div id="moc3" class="draggable" draggable="true">
+                    <img src="moc3.png" alt="Moc3">
+                    <span>Моцарела 3</span>
+                </div>
+                <div id="telya" class="draggable" draggable="true">
+                    <img src="telya.png" alt="Telya">
+                    <span>Телятинка</span>
+                </div>
+                <div id="vetch1" class="draggable" draggable="true">
+                    <img src="vetch1.png" alt="Vetch1">
+                    <span>Овочі 1</span>
+                </div>
+                <div id="vetch2" class="draggable" draggable="true">
+                    <img src="vetch2.png" alt="Vetch2">
+                    <span>Овочі 2</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="result">
+            <div class="price"><p>Ціна: 50 грн</p></div>
+            <div class="sauces"><p>Соуси:</p></div>
+            <div class="topings"><p>Топінги:</p></div>
+        </div>
+
+        <form id="orderForm">
+            <label>Ім'я: <input type="text" id="name" required></label>
+            <label>Телефон: <input type="text" id="phone" required></label>
+            <label>Електронна пошта: <input type="email" id="email" required></label>
+            <button type="button" class="button" onclick="sendOrder()">Замовити</button>
+        </form>
+
+        <div id="banner">
+            <p>Знижка 10%</p>
+            <button id="discountBtn">Натисніть мене!</button>
+        </div>
+    </main>
+
+    <footer>
+        <h2>Контакти</h2>
+        <sub>У разі питань, звертайтеся на пошту ovnatura@gmail.com</sub>
+        <address>© 2024 Pizza Builder</address>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
