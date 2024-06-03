@@ -39,12 +39,12 @@ window.addEventListener("DOMContentLoaded", function() {
     okButton.addEventListener("click", function() {
         modal.style.display = "none"; // Ховаємо модальне вікно
         isSaved = true; // Позначаємо, що дані збережено
-        window.location.href = "about:blank"; // Перенаправляємо на пусту сторінку
+        modalOpen = false; // Позначаємо, що модальне вікно було закрите
     });
 
     // Обробник події для кнопки "Скасувати" у модальному вікні
     cancelButton.addEventListener("click", function() {
         modal.style.display = "none"; // Ховаємо модальне вікно
-        modalOpen = false;
+        modalOpen = false; // Позначаємо, що модальне вікно було закрите
     });
 });
