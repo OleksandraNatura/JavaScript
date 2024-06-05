@@ -1,6 +1,8 @@
+/* Загальні стилі */
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 :root {
@@ -65,6 +67,51 @@ main {
     padding: 0 10%;
 }
 
+.size-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center; /* Додаємо центроване вирівнювання */
+}
+
+.size-options label {
+    display: flex;
+    align-items: center; /* Вирівнюємо текст і прапорець по вертикалі */
+    margin: 10px 0;
+    flex-direction: row; /* Робимо напрямок рядковим */
+}
+
+.size-options input[type="radio"] {
+    display: none;
+}
+
+.size-options .fakeCheckbox {
+    display: inline-block;
+    border: 3px var(--main) solid;
+    border-radius: 3px;
+    height: 20px;
+    width: 20px;
+    margin-right: 10px; /* Додано відступ між прапорцем і текстом */
+    position: relative;
+}
+
+.size-options .fakeCheckbox::after {
+    content: '';
+    position: absolute;
+    display: none;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    background: var(--main);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.size-options input[type="radio"]:checked + .fakeCheckbox::after {
+    display: block;
+}
+
 #banner {
     position: fixed;
     bottom: 2%;
@@ -82,7 +129,7 @@ main {
 }
 
 @keyframes padd {
-    50% { 
+    50% {
         padding: 1.2em 1.7em;
         margin: 0 -0.2em -0.2em 0;
     }
@@ -133,7 +180,8 @@ form {
     margin-bottom: 20px;
 }
 
-input[type="radio"], input[type="checkbox"] {
+input[type="radio"],
+input[type="checkbox"] {
     opacity: 0;
 }
 
@@ -187,7 +235,7 @@ input[type="radio"], input[type="checkbox"] {
     border-radius: 10px;
 }
 
-.table > img {
+.table>img {
     display: inline-block;
     position: absolute;
     left: 0;
@@ -307,12 +355,13 @@ p.element {
     margin: 1em;
 }
 
-footer > h2, footer > sub {
+footer>h2,
+footer>sub {
     color: white;
     text-align: center;
 }
 
-footer > h2 {
+footer>h2 {
     text-transform: uppercase;
     font-size: 2em;
 }
@@ -323,12 +372,13 @@ footer > h2 {
     align-items: center;
 }
 
-footer > form > div > label, input[name='cancel'] {
+footer>form>div>label,
+input[name='cancel'] {
     justify-self: right;
     margin: 1em;
 }
 
-footer > form > div > p {
+footer>form>div>p {
     grid-column: 2/3;
     justify-self: left;
     padding-left: 1.2em;
@@ -336,11 +386,6 @@ footer > form > div > p {
     margin-top: -12px;
     text-transform: none;
     color: red;
-}
-
-.size-options label {
-    display: block;
-    margin: 10px 0;
 }
 
 .selectSizeBtn {
@@ -356,8 +401,10 @@ footer > form > div > p {
     background-color: #e67e22;
 }
 
-@media screen and (max-width:600px) {
-    nav, #banner {
+@media screen and (max-width: 600px) {
+
+    nav,
+    #banner {
         display: none;
     }
 
@@ -372,11 +419,12 @@ footer > form > div > p {
         margin-top: 80px;
     }
 
-    .ingridients, .table {
+    .ingridients,
+    .table {
         width: 100%;
     }
-    
-    .table {     
+
+    .table {
         margin: 100px 0;
     }
 
@@ -388,18 +436,21 @@ footer > form > div > p {
         grid-template-columns: 100%;
     }
 
-    .grid > input, input.button {
+    .grid>input,
+    input.button {
         width: 90%;
         margin: 10px 0;
         padding: 5%;
     }
 
-    footer > form > div > label, input[name='cancel'], footer > form > div > p {
+    footer>form>div>label,
+    input[name='cancel'],
+    footer>form>div>p {
         justify-self: center;
         margin: 10px 0;
     }
 
-    footer > form > div > input[name='btnSubmit'] {
+    footer>form>div>input[name='btnSubmit'] {
         width: 100% !important;
     }
 

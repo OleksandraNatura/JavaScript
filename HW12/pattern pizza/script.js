@@ -1,109 +1,96 @@
-const pizzaBase = document.getElementById('pizzaBase');
-const ingredients = document.querySelectorAll('.draggable');
-const discountBtn = document.getElementById('discountBtn');
-const selectSizeBtns = document.querySelectorAll('.selectSizeBtn');
-let sauces = [];
-let toppings = [];
-let currentPrice = 50; // Initial price for small pizza
 
-function handleDragStart(e) {
-    e.dataTransfer.setData('text', e.target.id);
-}
+document.addEventListener('DOMContentLoaded', () => {
+    const pizzaForm = document.getElementById('pizzaForm');
+    const pizzaBase = document.getElementById('pizzaBase');
+    const resultPrice = document.querySelector('.price p');
+    const resultSauces = document.querySelector('.sauces p');
+    const resultTopings = document.querySelector('.topings p');
 
-function handleDragOver(e) {
-    e.preventDefault();
-}
+    let price = 50;
+    const selectedIngredients = {
+        size: 'small',
+        sauces: [],
+        topings: []
+    };
 
-function handleDrop(e) {
-    e.preventDefault();
-    const ingredientId = e.dataTransfer.getData('text');
-    const ingredient = document.getElementById(ingredientId);
-    const img = document.createElement('img');
-    img.src = ingredient.querySelector('img').src;
-    img.style.width = '100%';
-    img.style.height = '100%';
-    pizzaBase.appendChild(img);
+    const ingredientPrices = {
+        sauces: {
+            sauceClassic: 5,
+            sauceBBQ: 7,
+            sauceRikotta: 10
+        },
+        topings: {
+            moc1: 8,
+            moc2: 9,
+            moc3: 10,
+            telya: 12,
+            vetch1: 5,
+            vetch2: 6
+        }
+    };
 
-    if (ingredientId.startsWith('sauce')) {
-        sauces.push(ingredient.querySelector('span').textContent);
-    } else {
-        toppings.push(ingredient.querySelector('span').textContent);
+    function updatePrice() {
+        let newPrice = 50;
+        selectedIngredients.sauces.forEach(sauce => {
+            newPrice += ingredientPrices.sauces[sauce];
+        });
+        selectedIngredients.topings.forEach(toping => {
+            newPrice += ingredientPrices.topings[toping];
+        });
+        price = newPrice;
+        resultPrice.textContent = `Ціна: ${price} грн`;
     }
 
-    updateOrderDetails();
-    updatePrice();
-}
-
-function updatePrice() {
-    const size = document.querySelector('input[name="size"]:checked').value;
-    switch (size) {
-        case 'small':
-            currentPrice = 50;
-            break;
-        case 'mid':
-            currentPrice = 75;
-            break;
-        case 'big':
-            currentPrice = 100;
-            break;
+    function updateResult() {
+        resultSauces.textContent = `Соуси: ${selectedIngredients.sauces.join(', ')}`;
+        resultTopings.textContent = `Топінги: ${selectedIngredients.topings.join(', ')}`;
     }
-    currentPrice += sauces.length * 10;
-    currentPrice += toppings.length * 15;
 
-    document.querySelector('.price p').textContent = `Ціна: ${currentPrice} грн`;
-}
+    pizzaForm.addEventListener('change', (e) => {
+        if (e.target.name === 'size') {
+            const selectedSize = e.target.value;
+            selectedIngredients.size = selectedSize;
+            console.log(`Selected size: ${selectedSize}`);
+        }
+        updatePrice();
+        updateResult();
+    });
 
-function updateOrderDetails() {
-    document.querySelector('.sauces p').textContent = `Соуси: ${sauces.join(', ')}`;
-    document.querySelector('.topings p').textContent = `Топінги: ${toppings.join(', ')}`;
-}
+    function handleDrop(e) {
+        e.preventDefault();
+        const ingredientId = e.dataTransfer.getData('text/plain');
+        const ingredientType = ingredientId.includes('sauce') ? 'sauces' : 'topings';
 
-function handleDiscountBtn() {
-    const x = Math.random() * (window.innerWidth - discountBtn.clientWidth);
-    const y = Math.random() * (window.innerHeight - discountBtn.clientHeight);
-    discountBtn.style.transform = `translate(${x}px, ${y}px)`;
-}
+        if (!selectedIngredients[ingredientType].includes(ingredientId)) {
+            selectedIngredients[ingredientType].push(ingredientId);
+            updatePrice();
+            updateResult();
+        }
+    }
+
+    function handleDragOver(e) {
+        e.preventDefault();
+    }
+
+    pizzaBase.addEventListener('drop', handleDrop);
+    pizzaBase.addEventListener('dragover', handleDragOver);
+
+    const draggableElements = document.querySelectorAll('.draggable');
+    draggableElements.forEach(element => {
+        element.addEventListener('dragstart', (e) => {
+            e.dataTransfer.setData('text/plain', e.target.id);
+        });
+    });
+});
 
 function sendOrder() {
     const name = document.getElementById('name').value;
     const phone = document.getElementById('phone').value;
     const email = document.getElementById('email').value;
 
-    if (!name || !phone || !email) {
-        alert("Будь ласка, заповніть всі поля!");
-        return;
+    if (name && phone && email) {
+        alert(`Замовлення відправлено! Ім'я: ${name}, Телефон: ${phone}, Email: ${email}`);
+    } else {
+        alert('Будь ласка, заповніть усі поля.');
     }
-
-    const size = document.querySelector('input[name="size"]:checked').value;
-    const orderDetails = `
-        Ім'я: ${name}\n
-        Телефон: ${phone}\n
-        Електронна пошта: ${email}\n
-        Розмір піци: ${size}\n
-        Соуси: ${sauces.join(', ')}\n
-        Топінги: ${toppings.join(', ')}\n
-        Ціна: ${currentPrice} грн
-    `;
-
-    window.location.href = `mailto:ovnatura@gmail.com?subject=Замовлення піци&body=${encodeURIComponent(orderDetails)}`;
 }
-
-function selectSize(size) {
-    document.querySelector(`input[value="${size}"]`).checked = true;
-    updatePrice();
-    updateOrderDetails();
-}
-
-ingredients.forEach(ingredient => {
-    ingredient.addEventListener('dragstart', handleDragStart);
-});
-
-pizzaBase.addEventListener('dragover', handleDragOver);
-pizzaBase.addEventListener('drop', handleDrop);
-discountBtn.addEventListener('mouseover', handleDiscountBtn);
-
-selectSizeBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        selectSize(btn.dataset.size);
-    });
-});

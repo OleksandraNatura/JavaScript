@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pizza Builder</title>
-    <link rel="stylesheet" href="Styles/styles.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
@@ -22,28 +22,26 @@
 
     <main>
         <h1>Зроби свою піцу</h1>
-
         <form id="pizzaForm">
             <h3>Розмір піци</h3>
             <div class="size-options">
                 <label>
-                    <input type="radio" name="size" value="small" checked> 
-                    Мала (50 грн)
-                    <button type="button" class="selectSizeBtn" data-size="small">Вибрати</button>
+                    <input type="radio" name="size" value="small" class="sizeRadio" checked>
+                    <span class="fakeCheckbox"></span>
+                    Мала
                 </label>
                 <label>
-                    <input type="radio" name="size" value="mid"> 
-                    Середня (75 грн)
-                    <button type="button" class="selectSizeBtn" data-size="mid">Вибрати</button>
+                    <input type="radio" name="size" value="mid" class="sizeRadio">
+                    <span class="fakeCheckbox"></span>
+                    Середня
                 </label>
                 <label>
-                    <input type="radio" name="size" value="big"> 
-                    Велика (100 грн)
-                    <button type="button" class="selectSizeBtn" data-size="big">Вибрати</button>
+                    <input type="radio" name="size" value="big" class="sizeRadio">
+                    <span class="fakeCheckbox"></span>
+                    Велика
                 </label>
             </div>
         </form>
-
         <div class="table-wrapper">
             <div class="table" id="pizzaBase">
                 <img src="pizza_base.png" alt="Pizza Base">
@@ -119,4 +117,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-
